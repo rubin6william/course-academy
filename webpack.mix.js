@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+require('mix-tailwindcss')
 
 /*
  |--------------------------------------------------------------------------
@@ -13,6 +14,11 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
     .vue()
-    .postCss('resources/css/app.css', 'public/css', [
-        require('tailwindcss')
-    ])
+    .postCss('resources/css/app.css', 'public/css')
+    .tailwind()
+    .webpackConfig({
+        devServer: {
+            host: '0.0.0.0',
+            port: 8080,
+        },
+    })

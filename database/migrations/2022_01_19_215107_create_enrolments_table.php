@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Course;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -23,6 +24,7 @@ class CreateEnrolmentsTable extends Migration
                 ->constrained('courses')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->enum('completion_status', array_keys(Course::STATES));
             $table->timestamps();
         });
     }

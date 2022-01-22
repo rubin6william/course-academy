@@ -14,6 +14,12 @@ class Course extends Model
 {
     use HasFactory;
 
+    const STATES = [
+        'not_started' => 'Not Started',
+        'in_progress' => 'In Progress',
+        'completed' => 'Completed'
+    ];
+
     /**
      * @var string[]
      */
@@ -25,6 +31,8 @@ class Course extends Model
      * @return BelongsToMany
      */
     public function enrolments(): BelongsToMany {
-        return $this->belongsToMany(Course::class, 'enrolments');
+        return $this
+            ->belongsToMany(User::class, 'enrolments')
+            ->withPivot(['completion_status']);
     }
 }
