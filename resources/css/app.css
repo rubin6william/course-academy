@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    h1 {
+        @apply text-3xl font-bold sm:text-4xl text-gray-900;
+    }
+
+    body {
+        @apply text-gray-700;
+    }
+
+    a.disabled {
+        @apply cursor-not-allowed text-gray-300;
+    }
+}
