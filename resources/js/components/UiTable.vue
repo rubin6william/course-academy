@@ -1,7 +1,33 @@
 <template>
-    <div class="md:hidden text-sm">
+    <div class="flex flex-col gap-4 bg-blue-100 px-6 py-2 rounded mb-4">
+        <div class="font-medium">Filters</div>
+        <div class="flex flex-col sm:flex-row w-full gap-4">
+            <template v-for="column in searchableColumns">
+                <select v-if="column.type === 'select'"
+                        v-model="filters[column.key]">
+                    <option value="" class="text-gray-400">{{ `Search ${column.label}` }}</option>
+                    <option :value="option.value" v-for="option in column.values">{{ option.text }}</option>
+                </select>
+
+                <input v-else
+                       type="text"
+                       :placeholder="`Search ${column.label}`"
+                       v-model="filters[column.key]"/>
+            </template>
+        </div>
+        <button class="self-start bg-white px-4 py-1 rounded border border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:font-medium"
+                @click="resetFilters">
+            Reset
+        </button>
+    </div>
+
+    <div class="flex gap-4">
+        <slot name="additional-info" :response="localResponse"></slot>
+    </div>
+
+    <div class="md:hidden text-sm mt-2">
         <select v-model="sorting"
-                class="mb-4">
+                class="mb-4 w-full">
             <option value="">Sort By</option>
             <template v-for="column in columns">
                 <template v-if="column.sortable">
@@ -33,32 +59,6 @@
     </div>
 
     <div class="flex flex-col hidden md:flex">
-        <div class="flex flex-col gap-4 bg-blue-100 px-6 py-2 rounded">
-            <div class="font-medium">Filters</div>
-            <div class="flex gap-4">
-                <template v-for="column in searchableColumns">
-                    <select v-if="column.type === 'select'"
-                            v-model="filters[column.key]">
-                        <option value="" class="text-gray-400">{{ `Search ${column.label}` }}</option>
-                        <option :value="option.value" v-for="option in column.values">{{ option.text }}</option>
-                    </select>
-
-                    <input v-else
-                           type="text"
-                           :placeholder="`Search ${column.label}`"
-                           v-model="filters[column.key]"/>
-                </template>
-            </div>
-            <button class="self-start bg-white px-4 py-1 rounded border border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:font-medium"
-                    @click="resetFilters">
-                Reset
-            </button>
-        </div>
-
-        <div class="flex flex-row-reverse gap-4">
-            <slot name="additional-info" :response="localResponse"></slot>
-        </div>
-
         <table class="sm:table-auto text-left w-full text-sm">
             <thead>
             <tr class="border-b border-gray-100">

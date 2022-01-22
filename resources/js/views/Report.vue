@@ -21,7 +21,8 @@
             </template>
 
             <template v-slot:additional-info="{ response }">
-                <div class="flex gap-6 px-6 py-4 shadow mt-2 mb-4">
+                <div v-if="response && response.counts"
+                    class="hidden sm:flex gap-6 px-6 py-4 mt-2 mb-4 w-full justify-end">
                     <div class="flex gap-2">
                         <span class="text-gray-400">Total Users: </span>
                         <span class="font-medium">{{ response.counts.users }}</span>
