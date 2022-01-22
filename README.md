@@ -1,4 +1,4 @@
-##Course Academy
+## Course Academy
 
 - This project displays a report with enrolments
 
